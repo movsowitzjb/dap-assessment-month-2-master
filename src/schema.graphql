@@ -1,0 +1,69 @@
+type Query {
+  groups(query: String): [Group!]!
+  orgs(query: String): [Org!]!
+  sites(query: String): [Site!]!
+}
+
+type Mutation {
+  createGroup(data: CreateGroupInput!): Group!
+  deleteGroup(id: ID!): Group!
+  updateGroup(id: ID!, data: UpdateGroupInput!): Group!
+  createOrg(data: CreateOrgInput!): Org!
+  deleteOrg(id: ID!): Org!
+  updateOrg(id: ID!, data: UpdateOrgInput!): Org!
+  createSite(data: CreateSiteInput!): Site!
+  deleteSite(id: ID!): Site!
+  updateSite(id: ID!, data: UpdateSiteInput!): Site!
+}
+
+input CreateGroupInput {
+  name: String!
+}
+
+input UpdateGroupInput {
+  name: String
+}
+
+input CreateOrgInput {
+  name: String!
+  groupId: ID!
+}
+
+input UpdateOrgInput {
+  name: String
+}
+
+input CreateSiteInput {
+  name: String!
+  orgId: ID!
+  location: Int
+}
+
+input UpdateSiteInput {
+  name: String!
+}
+
+type Group {
+  id: ID!
+  name: String!
+}
+
+type Org {
+  id: ID!
+  name: String!
+  groupId: String!
+  sites: [Site!]!
+}
+
+type Site {
+  id: ID!
+  name: String!
+  orgId: ID!
+  groupId: ID!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}

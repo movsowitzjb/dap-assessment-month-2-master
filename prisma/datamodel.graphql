@@ -1,0 +1,22 @@
+type Group {
+  id: ID! @unique
+  name: String!
+}
+
+type Org {
+  id: ID! @unique
+  groupId: Group! @relation(name: "OrgToGroup", onDelete: SET_NULL)
+  name: String!
+}
+
+type Site {
+  id: ID! @unique
+  groupId: Group! @relation(name: "SiteToGroup", onDelete: SET_NULL)
+  orgId: Org! @relation(name: "SiteToOrg", onDelete: SET_NULL)
+  name: String!
+  location: Point!
+}
+type Point {
+  latitude: Float!
+  longitude: Float!
+}

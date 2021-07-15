@@ -1,0 +1,881 @@
+# source: http://localhost:4466
+# timestamp: Thu Jul 15 2021 19:24:25 GMT+0200 (South Africa Standard Time)
+
+type AggregateGroup {
+  count: Int!
+}
+
+type AggregateOrg {
+  count: Int!
+}
+
+type AggregatePoint {
+  count: Int!
+}
+
+type AggregateSite {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Group implements Node {
+  id: ID!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type GroupConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GroupEdge]!
+  aggregate: AggregateGroup!
+}
+
+input GroupCreateInput {
+  name: String!
+}
+
+input GroupCreateOneInput {
+  create: GroupCreateInput
+  connect: GroupWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type GroupEdge {
+  """The item at the end of the edge."""
+  node: Group!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum GroupOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GroupPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type GroupSubscriptionPayload {
+  mutation: MutationType!
+  node: Group
+  updatedFields: [String!]
+  previousValues: GroupPreviousValues
+}
+
+input GroupSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GroupSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GroupSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GroupSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GroupWhereInput
+}
+
+input GroupUpdateDataInput {
+  name: String
+}
+
+input GroupUpdateInput {
+  name: String
+}
+
+input GroupUpdateOneInput {
+  create: GroupCreateInput
+  connect: GroupWhereUniqueInput
+  delete: Boolean
+  update: GroupUpdateDataInput
+  upsert: GroupUpsertNestedInput
+}
+
+input GroupUpsertNestedInput {
+  update: GroupUpdateDataInput!
+  create: GroupCreateInput!
+}
+
+input GroupWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GroupWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GroupWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GroupWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input GroupWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createSite(data: SiteCreateInput!): Site!
+  createPoint(data: PointCreateInput!): Point!
+  createGroup(data: GroupCreateInput!): Group!
+  createOrg(data: OrgCreateInput!): Org!
+  updateSite(data: SiteUpdateInput!, where: SiteWhereUniqueInput!): Site
+  updateGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group
+  updateOrg(data: OrgUpdateInput!, where: OrgWhereUniqueInput!): Org
+  deleteSite(where: SiteWhereUniqueInput!): Site
+  deleteGroup(where: GroupWhereUniqueInput!): Group
+  deleteOrg(where: OrgWhereUniqueInput!): Org
+  upsertSite(where: SiteWhereUniqueInput!, create: SiteCreateInput!, update: SiteUpdateInput!): Site!
+  upsertGroup(where: GroupWhereUniqueInput!, create: GroupCreateInput!, update: GroupUpdateInput!): Group!
+  upsertOrg(where: OrgWhereUniqueInput!, create: OrgCreateInput!, update: OrgUpdateInput!): Org!
+  updateManySites(data: SiteUpdateInput!, where: SiteWhereInput): BatchPayload!
+  updateManyPoints(data: PointUpdateInput!, where: PointWhereInput): BatchPayload!
+  updateManyGroups(data: GroupUpdateInput!, where: GroupWhereInput): BatchPayload!
+  updateManyOrgs(data: OrgUpdateInput!, where: OrgWhereInput): BatchPayload!
+  deleteManySites(where: SiteWhereInput): BatchPayload!
+  deleteManyPoints(where: PointWhereInput): BatchPayload!
+  deleteManyGroups(where: GroupWhereInput): BatchPayload!
+  deleteManyOrgs(where: OrgWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type Org implements Node {
+  id: ID!
+  groupId(where: GroupWhereInput): Group!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type OrgConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [OrgEdge]!
+  aggregate: AggregateOrg!
+}
+
+input OrgCreateInput {
+  name: String!
+  groupId: GroupCreateOneInput!
+}
+
+input OrgCreateOneInput {
+  create: OrgCreateInput
+  connect: OrgWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type OrgEdge {
+  """The item at the end of the edge."""
+  node: Org!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum OrgOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type OrgPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type OrgSubscriptionPayload {
+  mutation: MutationType!
+  node: Org
+  updatedFields: [String!]
+  previousValues: OrgPreviousValues
+}
+
+input OrgSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrgSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrgSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrgSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OrgWhereInput
+}
+
+input OrgUpdateDataInput {
+  name: String
+  groupId: GroupUpdateOneInput
+}
+
+input OrgUpdateInput {
+  name: String
+  groupId: GroupUpdateOneInput
+}
+
+input OrgUpdateOneInput {
+  create: OrgCreateInput
+  connect: OrgWhereUniqueInput
+  delete: Boolean
+  update: OrgUpdateDataInput
+  upsert: OrgUpsertNestedInput
+}
+
+input OrgUpsertNestedInput {
+  update: OrgUpdateDataInput!
+  create: OrgCreateInput!
+}
+
+input OrgWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrgWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrgWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrgWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  groupId: GroupWhereInput
+}
+
+input OrgWhereUniqueInput {
+  id: ID
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Point {
+  latitude: Float!
+  longitude: Float!
+}
+
+"""A connection to a list of items."""
+type PointConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PointEdge]!
+  aggregate: AggregatePoint!
+}
+
+input PointCreateInput {
+  latitude: Float!
+  longitude: Float!
+}
+
+input PointCreateOneInput {
+  create: PointCreateInput
+}
+
+"""An edge in a connection."""
+type PointEdge {
+  """The item at the end of the edge."""
+  node: Point!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PointOrderByInput {
+  latitude_ASC
+  latitude_DESC
+  longitude_ASC
+  longitude_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PointPreviousValues {
+  latitude: Float!
+  longitude: Float!
+}
+
+type PointSubscriptionPayload {
+  mutation: MutationType!
+  node: Point
+  updatedFields: [String!]
+  previousValues: PointPreviousValues
+}
+
+input PointSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PointSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PointSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PointSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PointWhereInput
+}
+
+input PointUpdateDataInput {
+  latitude: Float
+  longitude: Float
+}
+
+input PointUpdateInput {
+  latitude: Float
+  longitude: Float
+}
+
+input PointUpdateOneInput {
+  create: PointCreateInput
+  delete: Boolean
+  update: PointUpdateDataInput
+  upsert: PointUpsertNestedInput
+}
+
+input PointUpsertNestedInput {
+  update: PointUpdateDataInput!
+  create: PointCreateInput!
+}
+
+input PointWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PointWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PointWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PointWhereInput!]
+  latitude: Float
+
+  """All values that are not equal to given value."""
+  latitude_not: Float
+
+  """All values that are contained in given list."""
+  latitude_in: [Float!]
+
+  """All values that are not contained in given list."""
+  latitude_not_in: [Float!]
+
+  """All values less than the given value."""
+  latitude_lt: Float
+
+  """All values less than or equal the given value."""
+  latitude_lte: Float
+
+  """All values greater than the given value."""
+  latitude_gt: Float
+
+  """All values greater than or equal the given value."""
+  latitude_gte: Float
+  longitude: Float
+
+  """All values that are not equal to given value."""
+  longitude_not: Float
+
+  """All values that are contained in given list."""
+  longitude_in: [Float!]
+
+  """All values that are not contained in given list."""
+  longitude_not_in: [Float!]
+
+  """All values less than the given value."""
+  longitude_lt: Float
+
+  """All values less than or equal the given value."""
+  longitude_lte: Float
+
+  """All values greater than the given value."""
+  longitude_gt: Float
+
+  """All values greater than or equal the given value."""
+  longitude_gte: Float
+}
+
+type Query {
+  sites(where: SiteWhereInput, orderBy: SiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Site]!
+  points(where: PointWhereInput, orderBy: PointOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Point]!
+  groups(where: GroupWhereInput, orderBy: GroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Group]!
+  orgs(where: OrgWhereInput, orderBy: OrgOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Org]!
+  site(where: SiteWhereUniqueInput!): Site
+  group(where: GroupWhereUniqueInput!): Group
+  org(where: OrgWhereUniqueInput!): Org
+  sitesConnection(where: SiteWhereInput, orderBy: SiteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SiteConnection!
+  pointsConnection(where: PointWhereInput, orderBy: PointOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PointConnection!
+  groupsConnection(where: GroupWhereInput, orderBy: GroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GroupConnection!
+  orgsConnection(where: OrgWhereInput, orderBy: OrgOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrgConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Site implements Node {
+  id: ID!
+  groupId(where: GroupWhereInput): Group!
+  orgId(where: OrgWhereInput): Org!
+  name: String!
+  location(where: PointWhereInput): Point!
+}
+
+"""A connection to a list of items."""
+type SiteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SiteEdge]!
+  aggregate: AggregateSite!
+}
+
+input SiteCreateInput {
+  name: String!
+  groupId: GroupCreateOneInput!
+  orgId: OrgCreateOneInput!
+  location: PointCreateOneInput!
+}
+
+"""An edge in a connection."""
+type SiteEdge {
+  """The item at the end of the edge."""
+  node: Site!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum SiteOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SitePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type SiteSubscriptionPayload {
+  mutation: MutationType!
+  node: Site
+  updatedFields: [String!]
+  previousValues: SitePreviousValues
+}
+
+input SiteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SiteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SiteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SiteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SiteWhereInput
+}
+
+input SiteUpdateInput {
+  name: String
+  groupId: GroupUpdateOneInput
+  orgId: OrgUpdateOneInput
+  location: PointUpdateOneInput
+}
+
+input SiteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SiteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SiteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SiteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  groupId: GroupWhereInput
+  orgId: OrgWhereInput
+  location: PointWhereInput
+}
+
+input SiteWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  site(where: SiteSubscriptionWhereInput): SiteSubscriptionPayload
+  point(where: PointSubscriptionWhereInput): PointSubscriptionPayload
+  group(where: GroupSubscriptionWhereInput): GroupSubscriptionPayload
+  org(where: OrgSubscriptionWhereInput): OrgSubscriptionPayload
+}
